@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karine Luíza | Portfólio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d0c12;
+            --card-bg: #16141f;
+            --text-color: #e0ddeb;
+            --accent-pink: #ff2e63;
+            --accent-purple: #9d4edd;
+            --font-main: 'Inter', sans-serif;
+            --font-code: 'Space Mono', monospace;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            padding: 5rem 0 3rem;
+            text-align: center;
+            background: radial-gradient(circle at top, #1e1b2e 0%, var(--bg-color) 70%);
+        }
+
+        header h1 { margin: 0; color: #fff; font-size: 2.2rem; letter-spacing: -1px; font-weight: 600; }
+        header p { margin: 0.5rem 0 0; color: var(--accent-pink); font-weight: 400; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        main { width: 90%; max-width: 900px; margin-bottom: 5rem; }
+
+        .intro { text-align: center; margin-bottom: 4rem; opacity: 0.8; font-size: 1.1rem; line-height: 1.6; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+        .project-card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-card:hover { border-color: var(--accent-purple); transform: translateY(-5px); background-color: #1c1929; }
+
+        .tag { font-family: var(--font-code); font-size: 0.7rem; color: var(--accent-purple); text-transform: uppercase; margin-bottom: 0.8rem; display: block; }
+
+        .project-card h3 { margin: 0.5rem 0; font-size: 1.3rem; color: #fff; }
+        .project-card p { font-size: 0.9rem; opacity: 0.6; line-height: 1.5; margin: 0; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(15px); }
+        .modal-content { background-color: var(--card-bg); padding: 3rem; border-radius: 20px; max-width: 850px; width: 95%; max-height: 85vh; overflow-y: auto; border: 1px solid #333; position: relative; }
+        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 2rem; cursor: pointer; color: #666; transition: 0.3s; }
+        .close-modal:hover { color: var(--accent-pink); }
+        
+        .script-text { 
+            font-family: var(--font-code); 
+            white-space: pre-wrap; 
+            background-color: #050505; 
+            padding: 2rem; 
+            border-radius: 12px; 
+            color: #ccc; 
+            font-size: 0.85rem; 
+            line-height: 1.7; 
+            border: 1px solid #222;
+        }
+
+        footer { width: 100%; padding: 4rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); opacity: 0.5; font-size: 0.8rem; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Karine Luíza</h1>
+    <p>Content Specialist | Tech </p>
+</header>
+
+<main>
+    <section class="intro">
+        Desenvolvimento de interfaces e estratégias de conteúdo de alto impacto. 
+        Especialista em roteirização técnica, análise de retenção e storytelling para o mercado digital.
+    </section>
+
+    <div class="projects-grid">
+        <div class="project-card" onclick="openScript('witcher')">
+            <span class="tag">Deep Dive / Storytelling</span>
+            <h3>The Witcher: A Andorinha do Destino</h3>
+            <p>Roteiro documental focado em lore profunda e arcos narrativos complexos.</p>
+        </div>
+
+        <div class="project-card" onclick="openScript('stardew')">
+            <span class="tag">Short-form / Growth</span>
+            <h3>Stardew Valley: Segredos Reais</h3>
+            <p>Engenharia de retenção aplicada a vídeos curtos para maximizar o alcance orgânico.</p>
+        </div>
+
+        <div class="project-card" onclick="openScript('cyberpunk')">
+            <span class="tag">Analysis / Tech Review</span>
+            <h3>Cyberpunk 2077: O Case de Redenção</h3>
+            <p>Roteiro de análise técnica sobre a evolução de software e design de experiência.</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2026 Karine Luíza — Projetos desenvolvidos de forma independente para fins de portfólio.
+</footer>
+
+<div id="scriptModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle" style="color: #fff; margin-top: 0; font-size: 1.8rem;"></h2>
+        <div id="modalBody" class="script-text"></div>
+    </div>
+</div>
+
+<script>
+    const scripts = {
+        witcher: { 
+            title: "Roteiro: A História Oculta de Ciri", 
+            body: `TÍTULO: O Legado do Sangue Antigo (Deep Dive)
+DURAÇÃO ESTIMADA: 12-15 minutos
+
+[0:00 - INTRODUÇÃO CINEMATOGRÁFICA]
+(Visual: Ciri em meio ao gelo da Geada Branca. Close nos olhos dela refletindo luz verde.)
+LOCUTOR: Cirilla Fiona Elen Riannon. Para alguns, a Criança da Profecia. Para o mundo, a herdeira do trono de Cintra. Mas para Geralt de Rívia... apenas uma filha.
+LOCUTOR: Em The Witcher 3, passamos centenas de horas seguindo seus passos em Velen e Skellige. Mas por que o Sangue Antigo é TÃO cobiçado? Por que elfos de outras dimensões cruzariam o tempo e o espaço por uma garota de 21 anos?
+[GANCHO DE RETENÇÃO]
+LOCUTOR: O segredo não está na força dela, mas em uma traição cometida há duzentos anos que a CD Projekt Red decidiu deixar apenas nas entrelinhas. Hoje, vamos entender o verdadeiro custo de ser a Lady do Tempo e do Espaço.
+
+[1:30 - CAPÍTULO 1: O ERRO GENÉTICO DOS ELFOS]
+(Visual: Ilustrações artísticas dos elfos Aen Seidhe. Árvore genealógica de Lara Dorren.)
+LOCUTOR: Tudo começa com Lara Dorren, uma poderosa elfa que se apaixonou por um mago humano. Para os elfos Aen Elle, Ciri não é uma pessoa; ela é uma arma biológica que deu errado. 
+LOCUTOR: Eles tentaram criar o "Salvador dos Mundos" através de cruzamentos seletivos, mas o gene de Lara "vazou" para a linhagem humana. Ciri é o ápice desse erro. Ela é capaz de reabrir os Portais entre os Mundos, fechados desde a Conjunção das Esferas.
+
+[4:00 - CAPÍTULO 2: A MOTIVAÇÃO OCULTA DE EREDIN]
+(Visual: Gameplay de luta contra a Caçada Selvagem. Close na armadura de Eredin.)
+LOCUTOR: Aqui está o que muitos ignoram: Eredin não quer governar o mundo humano. Ele quer salvar o seu próprio povo da extinção. O mundo dos elfos Aen Elle está sendo engolido pela Geada Branca. Sem os poderes de Ciri para transportá-los, eles morrerão. Isso torna Eredin um vilão clássico ou apenas um rei desesperado?
+
+[7:30 - CAPÍTULO 3: O PESO DAS ESCOLHAS]
+(Visual: Cenas do final "Ciri Imperatriz" vs "Ciri Witcher".)
+LOCUTOR: No final "Imperatriz", Ciri abre mão da sua liberdade para tentar salvar o mundo pela política. No final "Witcher", Geralt mente para o Imperador Emhyr para dar a ela a vida que ela sempre quis. 
+LOCUTOR: Qual o peso dessa mentira? O destino é apenas metade da jornada. A outra metade são as escolhas que fazemos no caminho.
+
+[10:00 - CONCLUSÃO E CTA]
+LOCUTOR: A história de Ciri é sobre agência. Sobre uma mulher tentando ser dona do próprio destino. Se você chegou até aqui, você faz parte do 1% que realmente ama a lore. Se inscreve e comenta: "Andorinha".` 
+        },
+        stardew: { 
+            title: "Stardew Valley: Segredos do Deserto", 
+            body: `TÍTULO: O Segredo que Gus não quer que você saiba (Shorts)
+DURAÇÃO: 50 segundos
+
+[0:00-0:05] [GANCHO VISUAL]
+(Visual: Personagem parado em frente à porta da Caverna da Caveira. Zoom rápido no rosto.)
+LOCUTOR (Frenético): Você joga Stardew Valley há ANOS e nunca percebeu isso? O maior segredo do jogo não está no deserto, mas dentro do Saloon da cidade!
+
+[0:05-0:15] [PROBLEMA]
+(Visual: Gameplay minerando até achar a Chave da Caveira no andar 120 das minas comuns.)
+LOCUTOR: Todo mundo acha que a Chave da Caveira serve apenas para entrar na caverna do deserto. E é por isso que você está perdendo um dos melhores itens do jogo!
+
+[0:15-0:30] [SOLUÇÃO/CURIOSIDADE]
+(Visual: Jogador correndo para o Saloon e interagindo com o fliperama do Junimo Kart.)
+LOCUTOR: Se você levar essa chave até o Saloon e interagir com o fliperama do Junimo Kart, você desbloqueia o Modo Progresso. Pouca gente sabe, mas se você zerar esse minigame infernal, o Gus te envia o fliperama original PELO CORREIO para você colocar na sua casa!
+
+[0:30-0:45] [LOOP DE RETENÇÃO]
+(Visual: Personagem jogando o fliperama dentro da própria casa.)
+LOCUTOR: É o item de decoração mais raro do jogo e mostra que você é um mestre de verdade. Mas cuidado: o nível 5 é quase impossível sem o buff de sorte.
+
+[0:45-0:50] [CTA]
+LOCUTOR: Já conseguiu o seu? Comenta aí e já segue para mais dicas de Stardew!` 
+        },
+        cyberpunk: { 
+            title: "Cyberpunk 2077: O Case de Redenção", 
+            body: `TÍTULO: Cyberpunk 2077: O Software que se recusou a morrer
+DURAÇÃO ESTIMADA: 10 minutos
+
+[0:00 - INTRODUÇÃO]
+(Visual: Glitch na tela com cenas do lançamento quebrado de 2020. Transição para Phantom Liberty.)
+LOCUTOR: Dezembro de 2020 foi um trauma coletivo. O lançamento mais desastroso da década quase faliu a CD Projekt Red. Mas hoje, após a atualização 2.0, Cyberpunk 2077 não é apenas um jogo bom; é um dos melhores RPGs já feitos. Como isso foi possível?
+
+[2:00 - O REFAZIMENTO TÉCNICO]
+(Visual: Comparação de frames 2020 vs 2026. Gráficos de performance.)
+LOCUTOR: A redenção não foi estética, foi estrutural. A IA da polícia foi refeita do zero. O sistema de habilidades, que antes era uma árvore de bônus passivos inúteis, agora permite builds reais de netrunning e combate que mudam o gameplay. 
+
+[5:00 - PHANTOM LIBERTY]
+(Visual: Cenas de Idris Elba no jogo. Clima de espionagem.)
+LOCUTOR: A expansão Phantom Liberty trouxe o tom que faltava: espionagem noir. O roteiro se tornou mais maduro, tratando de lealdade e traição de uma forma que o jogo base apenas arranhava. 
+
+[8:00 - CONCLUSÃO]
+LOCUTOR: Cyberpunk 2077 é a prova de que o tempo e o respeito pela comunidade podem salvar qualquer projeto. Vale a pena em 2026? Absolutamente. Night City finalmente tem a alma que prometeram.` 
+        }
+    };
+
+    function openScript(id) {
+        document.getElementById('modalTitle').innerText = scripts[id].title;
+        document.getElementById('modalBody').innerText = scripts[id].body;
+        document.getElementById('scriptModal').style.display = 'flex';
+    }
+    function closeModal() { document.getElementById('scriptModal').style.display = 'none'; }
+    window.onclick = function(e) { if (e.target.className == 'modal') closeModal(); }
+</script>
+
+</body>
+</html>
